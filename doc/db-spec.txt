@@ -1,0 +1,96 @@
+$Id: README,v 1.1.1.1 2003/11/20 20:08:17 daniel Exp $
+
+================================================
+Daten, die in der Infotabelle gespeichert werden
+================================================
+
+sensorName  : Name des Sensors
+sensorDescr : Beschreibung des Sensors
+sensorType  : Typ des Sensors
+
+=================================
+Sensortypen (für die Infotabelle)
+=================================
+
+Typ               Information                    Einheit
+-----------------------------------------------------------
+KEY               Primärschlüssel                Zeit
+TEMPERATURE       Temperatur                     °C
+HUMIDITY          Luftfeuchtigkeit               %
+PRESSURE          Luftdruck (NN)                 hPa
+WIND_SPEED        Windgeschwindigkeit            m/s
+WIND_DIR          Windrichtung                   °
+RAIN              Regen und Gesamtregen          mm
+RAIN_RATE         Regenrate                      mm/h
+RAIN_START        Startdatum der Regenmessung    Zeit
+WEATHER_STATUS    Wetterzustand                  ???
+
+=================================================
+Daten, die in der Datentabelle gespeichert werden
+=================================================
+
+Primärer Schlüssel des Eintrags
+-------------------------------
+
+time : Zeitstempel     
+
+Daten des Windsensors
+---------------------
+
+windDir   : Windrichtung [°]
+windGust  : Windgeschwindigkeit [m/s]   
+windAvrg  : Windgeschwindigkeits-Durchschnitt [m/s]
+windChill : Lufttemperatur [°C]      
+
+Daten des Regensensors
+----------------------
+
+rainCurrent    : Niederschlag [mm/Stunde]  
+rainTotal      : Gesamtniederschlag [mm]  
+rainTotalStart : Startzeit Gesamtniederschlag
+
+Daten der Sensoren Kanal 1, Kanal 2 und Kanal 3
+-----------------------------------------------
+
+channelNTemp     : Temperatur (Kanal N) [°C]   
+channelNHumidity : Luftfeuchtigkeit (Kanal N) [%]   
+channelNDewTemp  : Tautemperatur (Kanal N) [°C]      
+
+Daten des Mushroom-Sensors
+--------------------------
+
+mushroomTemp    : Temperatur (Mushroom) [°C] 
+mushroomHumidity : Luftfeuchtigkeit (Mushroom) [%]
+mushroomDewTemp : Tautemperatur (Mushroom) [°C]   
+
+Daten des Sensors mit Barometer
+-------------------------------
+
+bthTemp          : Temperatur (BTH) [°C]    
+bthHumidity      : Luftfeuchtigkeit (BTH) [%]  
+bthDewTemp       : Tautemperatur (BTH) [°C] 
+bthBaro          : Luftdruck (BTH) [hPa]    
+bthWeatherStatus : Wetterzustand (BTH) 
+
+Wetterzustand:
+    0: Undefiniert
+    1: Sonnig      
+    2: Leicht bewölkt
+    3: Bewölkt
+    4: Regnerisch
+
+Daten des externen Sensors mit Barometer
+----------------------------------------
+
+extbthTemp          : Temperatur (außerhalb) [°C]    
+extbthHumidity      : Luftfeuchtigkeit (außerhalb) [%]  
+extbthDewTemp       : Tautemperatur (außerhalb) [°C] 
+extbthBaro          : Luftdruck (außerhalb) [hPa]    
+extbthWeatherStatus : Wetterzustand (außerhalb) 
+
+Wetterzustand:
+    0: Undefiniert
+    1: Sonnig      
+    2: Leicht bewölkt
+    3: Bewölkt
+    4: Regnerisch  

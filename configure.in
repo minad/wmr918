@@ -1,0 +1,135 @@
+dnl ===============================================================
+dnl Process this file with autoconf to produce a configure script.
+dnl $Id: configure.in,v 1.1.1.1 2003/11/20 20:08:17 daniel Exp $
+dnl ===============================================================
+
+AC_INIT(src/wmr918.c)
+AM_INIT_AUTOMAKE(wmr918, 0.1)
+AM_CONFIG_HEADER(config.h)
+AC_PREFIX_DEFAULT(/usr/local)
+
+dnl ===============================================================
+dnl Checks for programs.
+dnl ===============================================================
+
+AC_PROG_CC
+AC_PROG_INSTALL
+AC_PROG_LN_S
+
+dnl ===============================================================
+dnl Checks for libdbi.
+dnl ===============================================================
+
+AC_DEFUN(FIND_FILES,
+[
+    for dir in $2; do
+        for file in $1; do
+            if test -r "$dir/$file"; then
+                $3
+                found=1
+                break 2
+            fi
+        done
+    done
+    if test -z "$found"; then
+        $4
+    fi
+])
+
+AC_MSG_CHECKING(for libdbi header files)
+AC_ARG_WITH(dbi-incdir,
+            [  --with-dbi-incdir=DIR	  Specifies the location of the libdbi header.],
+            [ dbi_incdir=$withval ])
+
+if test -z "$dbi_incdir"; then
+    FIND_FILES([ dbi/dbi.h ],
+               [ /usr/include /usr/local/include ],
+               [ dbi_incdir=$dir ],
+               [ AC_MSG_RESULT(no)
+                 AC_MSG_ERROR(libdbi headers not found (Use --with-dbi-incdir=path)) ])
+fi
+
+AC_MSG_RESULT($dbi_incdir)
+
+AC_MSG_CHECKING(for libdbi library files)
+AC_ARG_WITH(dbi-libdir,
+            [  --with-dbi-libdir=DIR	  Specifies the location of the libdbi librarys.],
+            [ dbi_libdir=$withval ])
+
+if test -z "$dbi_libdir"; then
+    FIND_FILES([ libdbi.so ],
+               [ /usr/lib /usr/local/lib ],
+               [ dbi_libdir=$dir ],
+               [ AC_MSG_RESULT(no)
+                 AC_MSG_ERROR(libdbi librarys not found (Use --with-dbi-libdir=path)) ])
+fi
+
+AC_MSG_RESULT($dbi_libdir)
+
+DBI_INCDIR=-I$dbi_incdir
+DBI_LIBDIR=-L$dbi_libdir
+AC_SUBST(DBI_INCDIR)
+AC_SUBST(DBI_LIBDIR)
+
+dnl ===============================================================
+dnl Checks for header files.
+dnl ===============================================================
+
+dnl Which headers should be checked???
+dnl AC_CHECK_HEADERS(...)
+
+dnl ===============================================================
+dnl Checks for typedefs, structures, and compiler characteristics.
+dnl ===============================================================
+
+AC_C_CONST
+AC_C_INLINE
+AC_TYPE_SIZE_T
+
+dnl ===============================================================
+dnl Checks for library functions.
+dnl ===============================================================
+
+dnl Which functions should be checked???
+dnl AC_CHECK_FUNCS(...)
+
+dnl ===============================================================
+dnl Checks for location of pid and config file.
+dnl ===============================================================
+
+AC_MSG_CHECKING(for location of config file)
+if test "$prefix" = "NONE"; then
+    my_sysconfdir=${sysconfdir/'${prefix}'/$ac_default_prefix}
+
+else
+    my_sysconfdir=${sysconfdir/'${prefix}'/$prefix}
+fi
+AC_DEFINE_UNQUOTED(CONFIG_FILE, "$my_sysconfdir/wmr918.config", Location of configuration file)
+AC_MSG_RESULT($my_sysconfdir)
+
+AC_MSG_CHECKING(for location of pid file)
+AC_ARG_WITH(pid-dir,
+            [  --with-pid-dir=DIR	  Specifies the location of the pid file.],
+            [ pid_dir=$withval ])
+
+if test -z "$pid_dir"; then
+    if test -d "/var/run"; then
+        pid_dir="/var/run"
+    elif test -d /usr/run; then
+        pid_dir="/usr/run"
+    else
+        pid_dir="/tmp"
+    fi
+fi
+
+AC_DEFINE_UNQUOTED(PID_FILE, "$pid_dir/wmr918.pid", Location of pid file)
+AC_MSG_RESULT($pid_dir)
+
+dnl ===============================================================
+dnl Output
+dnl ===============================================================
+
+AC_OUTPUT([Makefile
+           data/Makefile
+           doc/Makefile
+           src/Makefile])

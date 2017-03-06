@@ -1,0 +1,84 @@
+$Id: HISTORY,v 1.1.1.1 2003/11/20 20:08:17 daniel Exp $
+
+Version history of WMR918 Middleware:
+
+0.1:
+- Child process for serial reader
+- Minor changes in process.c
+- Minor changes in cfg.c 
+
+0.1-beta3:
+- System time now rounded to 1 minute
+- Weather status as string (16 characters)
+- Serial reader in a child process
+- info.table removed
+- process() and dbrecord: barometer values fixed (now 16 bit, offset added)
+
+0.1-beta2:
+- install.sql modified
+- info.table (used by install.sql) added
+- Option "--wsclock" added (Use weather station clock)
+- Packet processing changed (Time source handling)
+- Directory structure changed
+
+0.1-beta:
+- Packet processing complety rewritten
+- New BCD handling
+- New logging function
+- Configuration file
+- Many command line options removed
+- All functions cleaned
+- Global variables removed
+- Unnecessary mallocs removed
+- New header wmr918.h introduced
+- New options -?, --help and --version
+- Serial driver not yet tested
+- DBRecord format changed (*LowBatt removed, *Updated removed)
+- Table creation script install.sql
+- daemon() instead of fork()
+- DBRecord timestamp is initialized with system time by defualt
+- Building with automake, autoheader and autoconf
+- PID-File to check if daemon is already running 
+- Multiple stream files can be given at the command line
+- New source file misc.c
+
+0.1a:
+- First "release"
+- Fixed dbi_conn handling
+- Code is getting too complicated, will be restructured
+- Upgraded from libdbi-0.6.5 to 0.7.1
+- Fixed dbi_conn_queryf incompatibility
+- Fixed ERR_DUPLICATE in handleErrors()
+- New: dbi driver path option -s
+- New: path shows up in -t help list
+- New: error handling for dbi driver infrastructure
+- Minor change in signalHandler()--exit() reached too early
+- Byte constants are now unsigned char
+- So is argument for handleErrors()
+- Ready for real-life testing
+
+0.0-prealpha-3:
+- Source documentation for all .c and .h files !!!
+- Changes in logging code
+- Minor bugfixes
+- New handling of dbi_conn objects
+- Thinking about alpha release (I want to find bugs!)
+- No testing in real environment yet
+- No documentation
+
+0.0-prealpha-2:
+- Now hopefully working serial part
+- Implemented libdbi interface
+- No more support for libmysqlclient6
+- Added option --type
+- dbi driver listing implemented
+- Still no source documentation
+- Minor bugfixes
+
+0.0-prealpha-1:
+- First developer release (nearly working)
+- Working file input
+- Working MySQL output / no dbi support
+- No source documentation
+- Released for first client development
+- Major bugfixes ('The Evil Segfault')
